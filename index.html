@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Ada’s Coffee</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site">
+    <h1>☕ Ada’s Coffee</h1>
+    <nav>
+      <button class="btn" id="themeToggle" aria-pressed="false">Light</button>
+      <button class="btn ghost" id="openHelp">How it works</button>
+
+      <!-- NEW: slot status chip -->
+      <div class="slotbar" aria-live="polite" title="Booked slot">
+        <span>Slot</span>
+        <span id="slotStatus" class="chip">—</span>
+      </div>
+
+      <div class="cart" aria-live="polite">
+        <span>Cart</span>
+        <span id="cartCount" class="badge">0</span>
+      </div>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <!-- Menu -->
+    <section class="card">
+      <h2>Menu</h2>
+
+      <div class="grid">
+        <article class="product">
+          <div class="product__media flip" id="flipCard" tabindex="0" aria-label="Flip product card">
+            <div class="face front">Americano — ₦1,500</div>
+            <div class="face back">Medium roast • Cocoa notes</div>
+          </div>
+          <div class="product__body">
+            <p>Freshly brewed. Hover flips; click adds.</p>
+            <div class="row">
+              <button class="btn primary" data-add="1500">Add to cart</button>
+              <button class="btn ghost" id="pulseBtn">Highlight</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <h3>Checkout</h3>
+          <form id="orderForm" class="order">
+            <label>Full name
+              <input id="custName" type="text" placeholder="e.g. Precious Joseph" required>
+            </label>
+            <label>Note (optional)
+              <input id="note" type="text" placeholder="No sugar, please">
+            </label>
+            <div class="row">
+              <button type="submit" class="btn primary" id="saveBtn">Place order</button>
+              <div class="spinner" id="spinner" hidden aria-hidden="true"></div>
+            </div>
+            <small class="hint">Spinner runs while saving.</small>
+          </form>
+        </article>
+      </div>
+    </section>
+
+    <!-- Receipt -->
+    <section class="card">
+      <h2>Receipt</h2>
+      <div class="panel">
+        <div class="row inputs">
+          <label>Subtotal (₦)
+            <input id="subtotal" type="number" min="0" step="50" value="1500">
+          </label>
+          <label>Tip %
+            <input id="tipPct" type="number" min="0" step="1" value="10">
+          </label>
+          <label>Tax %
+            <input id="taxPct" type="number" min="0" step="0.5" value="7.5">
+          </label>
+        </div>
+        <div id="receipt" class="receipt"></div>
+      </div>
+    </section>
+
+    <!-- Schedule -->
+    <section class="card">
+      <h2>Schedule delivery</h2>
+      <div class="grid2">
+        <article class="panel">
+          <p>Chat with Chinedu to drop beans at the cart.</p>
+          <button class="btn" id="openModal">Open</button>
+        </article>
+
+        <article class="panel">
+          <h3>Flip speed</h3>
+          <div class="row">
+            <label for="speed">Card flip (ms)</label>
+            <input id="speed" type="range" min="200" max="2000" value="700">
+            <output id="speedOut">700</output>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast -->
+  <div id="toast" class="toast" hidden></div>
+
+  <!-- Modal -->
+  <div id="modalWrap" class="backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+      <header class="modal__hd">
+        <h3 id="mTitle">Chat with Chinedu</h3>
+        <button class="icon" id="closeModal" aria-label="Close">✕</button>
+      </header>
+      <div class="modal__bd">
+        <p>Pick a slot:</p>
+        <div class="row">
+          <!-- RENAMED: slotBtn -->
+          <button class="btn slotBtn">10:30</button>
+          <button class="btn slotBtn">13:00</button>
+          <button class="btn slotBtn">16:15</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help -->
+  <div id="help" class="backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="hTitle">
+      <header class="modal__hd">
+        <h3 id="hTitle">Quick guide</h3>
+        <button class="icon" id="closeHelp" aria-label="Close">✕</button>
+      </header>
+      <div class="modal__bd">
+        <ul>
+          <li>Buttons have gentle transitions.</li>
+          <li>Cards flip; spinner shows during save.</li>
+          <li>Totals update as you type.</li>
+          <li>Flip speed slider updates animation timing.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
